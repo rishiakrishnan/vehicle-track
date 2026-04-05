@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Bus</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body onload="loadRoutes('student_route')">
+
+<div class="container">
+    <h2>📡 Track Bus</h2>
+
+    <select id="student_route"></select>
+
+    <button onclick="trackBus()">Start Tracking</button>
+
+    <div id="result">
+        Live location will appear here...
+    </div>
+</div>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

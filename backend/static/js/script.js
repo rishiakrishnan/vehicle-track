@@ -15,6 +15,11 @@ async function addRoute() {
     });
 
     const data = await res.json();
+
+    if (!Array.isArray(data)) {
+        console.error("Invalid data:", data);
+        return;
+    }
     console.log(data);
 
     alert("Route added ✅");
@@ -109,28 +114,31 @@ function startTracking() {
 }
 
 // -------- STUDENT TRACK --------
-async function trackBus() {
+let trackInterval;
+
+function trackBus() {
     const route_no = document.getElementById("student_route").value;
 
-    const res = await fetch(API + "/track/" + route_no);
-    const data = await res.json();
+    if (trackInterval) clearInterval(trackInterval);
 
-    const container = document.getElementById("result");
-    container.innerHTML = "";
+    trackInterval = setInterval(async () => {
+        const res = await fetch(API + "/track/" + route_no);
+        const data = await res.json();
 
-    // 🔥 HANDLE ERROR FIRST
-    if (data.error) {
-        container.innerHTML = "No driver location yet 🚫";
-        return;
-    }
+        const container = document.getElementById("result");
+        container.innerHTML = "";
 
-    data.forEach((s, index) => {
-        const div = document.createElement("div");
-        div.innerHTML = `
-            0 -> ${s.stop} [${index+1}] ${s.status}
-            <br>|
-            <br>|
-        `;
-        container.appendChild(div);
-    });
+        if (data.error) {
+            container.innerHTML = "No driver location yet 🚫";
+            return;
+        }
+
+        data.forEach((s, index) => {
+            const div = document.createElement("div");
+            div.innerHTML = `
+                🛑 ${s.stop} → ${s.status}
+            `;
+            container.appendChild(div);
+        });
+    }, 3000); // every 3 sec
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body onload="loadRoutes('driver_route')">
+
+<div class="container">
+    <h2>🚍 Driver Panel</h2>
+
+    <select id="driver_route"></select>
+
+    <button onclick="startTracking()">Start Live Tracking</button>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body onload="loadRoutes('route_select')">
+<div class="container">
+    <h2>📍 Add Stops</h2>
+
+    <select id="route_select"></select>
+
+    <button onclick="addStopBox()">+ Add Stop</button>
+
+    <div id="stops"></div>
+
+    <button onclick="saveStops()">Save All Stops</button>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

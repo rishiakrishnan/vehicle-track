@@ -1,15 +1,30 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from models import *
 from utils import haversine, calculate_eta
 from flask_cors import CORS
-    
-app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
-@app.route('/')
-def home():
-    return "Bus Tracking API Running 🚀"
 
-# ---------- ROUTES ----------
+app = Flask(__name__)
+CORS(app)
+
+# ---------- FRONTEND PAGES ----------
+@app.route('/')
+def routes_page():
+    return render_template('page1_routes.html')
+
+@app.route('/stops')
+def stops_page():
+    return render_template('page2_stops.html')
+
+@app.route('/driver')
+def driver_page():
+    return render_template('page3_driver.html')
+
+@app.route('/student')
+def student_page():
+    return render_template('page4_student.html')
+
+
+# ---------- ROUTES API ----------
 @app.route('/add_route', methods=['POST'])
 def add_route_api():
     data = request.json
@@ -49,7 +64,7 @@ def update_location_api():
     return jsonify({"message": "Location updated"})
 
 
-# ---------- STUDENT VIEW ----------
+# ---------- STUDENT ----------
 @app.route('/track/<route_no>', methods=['GET'])
 def track(route_no):
     stops = get_stops(route_no)
@@ -69,7 +84,7 @@ def track(route_no):
             stop['longitude']
         )
 
-        if reached and distance <= 0.2:  # 200 meters
+        if reached and distance <= 0.2:
             status = "reached"
         else:
             reached = False
