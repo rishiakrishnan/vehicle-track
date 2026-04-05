@@ -1,0 +1,19 @@
+body {
+    font-family: Arial;
+    padding: 20px;
+}
+
+input, select, button {
+    margin: 5px;
+    padding: 8px;
+}
+
+.container {
+    max-width: 500px;
+}
+
+.stop-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+}
